@@ -1,0 +1,39 @@
+<!-- app/views/restaurants/index.html.erb -->
+
+<div class="container mt-5">
+  <h1 class="mb-4">Restaurants</h1>
+
+  <!-- Add link to create a new restaurant -->
+  <%= link_to "Create a New Restaurant", new_restaurant_path, class: "btn btn-primary mb-3" %>
+
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <% @restaurants.each do |restaurant| %>
+      <div class="col">
+        <div class="card h-100">
+          <div class="card-body">
+            <h5 class="card-title"><%= restaurant.name %></h5>
+            <p class="card-text"><strong>Location:</strong> <%= restaurant.location %></p>
+            <p class="card-text"><strong>Cuisine:</strong> <%= restaurant.cuisine %></p>
+            <p class="card-text"><strong>Rating:</strong> <%= restaurant.rating %></p>
+          </div>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>All Ratings:</strong>
+              <% restaurant.reviews.each do |review| %>
+                <%= content_tag(:span, review.rating, class: "badge bg-secondary me-1") %>
+              <% end %>
+            </li>
+          </ul>
+          <div class="card-footer">
+            <%= link_to "View Restaurnt", restaurant, class: "btn btn-primary btn-sm" %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        <%= paginate @restaurants %>
+      </ul>
+    </nav>
+  </div>
+</div>
